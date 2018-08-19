@@ -6,7 +6,7 @@
 
     <groupId>com.github.jactor.rises</groupId>
     <artifactId>jactor-rises</artifactId>
-    <version>1.1</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <name>jactor-rises</name>
 
