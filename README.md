@@ -20,9 +20,9 @@ graph TD;
 ### Set up ###
 
 * spring-boot applications are created when building (`mvn install`)
-    * `jactor-persistence-orm` which is a standalone rest application which handles the persistence on a database using an object relational model and `spring-data-jpa`
+    * `jactor-persistence-orm` is a standalone rest application which handles the persistence on a database using an object relational model and `spring-data-jpa`
     * `jactor-facade` is a rest applications which handles io from any interaction with/from `jactor-model`
-    * `jactor-web` which is a web application on apache tomcat
+    * `jactor-web` is a web application on apache tomcat
 * these applications can run side by side to get a full working web-application (using `mvn spring-boot:run` on each application)
 * `jactor-persistence-orm` is using h2 (in-memory database), and is not finite
 * after started `jactor-web`, point a browser to http://localhost:8080/jactor-web/
