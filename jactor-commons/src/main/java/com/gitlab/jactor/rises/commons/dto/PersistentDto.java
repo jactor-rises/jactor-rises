@@ -66,4 +66,5 @@ public abstract class PersistentDto<I extends Serializable> implements Serializa
     public void setUpdatedTime(LocalDateTime updatedTime) {
         this.updatedTime = updatedTime;
     }
+
 }
