@@ -16,6 +16,10 @@ public class Name implements Comparable<Name> {
         text = name;
     }
 
+    public String asString() {
+        return text;
+    }
+
     @Override public int compareTo(Name name) {
         return asString().compareTo(name.asString());
     }
@@ -32,7 +36,7 @@ public class Name implements Comparable<Name> {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append(text).toString();
     }
 
-    public String asString() {
-        return text;
+    public static Name of(String name) {
+        return new Name(name);
     }
 }
