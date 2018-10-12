@@ -1,6 +1,6 @@
 package com.gitlab.jactor.rises.test.extension.validate;
 
-import com.gitlab.jactor.rises.commons.builder.AbstractBuilder;
+import com.gitlab.jactor.rises.commons.builder.FieldValidation;
 import com.gitlab.jactor.rises.commons.builder.MissingFields;
 import com.gitlab.jactor.rises.commons.builder.ValidInstance;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -8,47 +8,38 @@ import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import static java.util.Arrays.asList;
+public class SuppressValidInstanceExtension implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback, FieldValidation.FieldValidator {
+    private final Set<Class> suppressValidations;
 
-public class SuppressValidInstanceExtension extends AbstractBuilder<Object> implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback {
-    private static final Set<Class> SUPPRESS_VALIDATIONS = new HashSet<>();
-
-    protected SuppressValidInstanceExtension() {
-        super((bean, missingFields) -> Optional.empty());
+    @SuppressWarnings("unused") public SuppressValidInstanceExtension() { // used by junit
+        this(Collections.emptySet());
     }
 
-    @Override protected Object buildBean() {
-        throw new UnsupportedOperationException("not implemented in extension");
+    public SuppressValidInstanceExtension(Set<Class> suppressValidations) {
+        this.suppressValidations = suppressValidations;
     }
 
     @Override public void beforeAll(ExtensionContext extensionContext) {
-        SUPPRESS_VALIDATIONS.clear();
+        FieldValidation.applyFieldValidator(this);
     }
 
     @Override public void beforeEach(ExtensionContext context) {
-        applyValidationRunner(new SuppressValidationRunner());
+        FieldValidation.applyFieldValidator(this);
     }
 
     @Override public void afterEach(ExtensionContext context) {
-        applyValidationRunner(new ValidationRunner());
+        FieldValidation.useStandardValidation();
     }
 
-    public static void suppressFor(Class<?>... classes) {
-        SUPPRESS_VALIDATIONS.addAll(asList(classes));
-    }
-
-    private class SuppressValidationRunner extends ValidationRunner {
-
-        @Override protected <B> Optional<MissingFields> validate(ValidInstance<B> validInstance, B bean) {
-            if (SUPPRESS_VALIDATIONS.isEmpty() || SUPPRESS_VALIDATIONS.contains(bean.getClass())) {
-                return Optional.empty();
-            }
-
-            return super.validate(validInstance, bean);
+    @Override public <E> Optional<MissingFields> validate(ValidInstance<E> validInstance, E bean) {
+        if (suppressValidations.contains(bean.getClass()) || suppressValidations.isEmpty()) {
+            return Optional.empty();
         }
+
+        return validInstance.validate(bean, new MissingFields());
     }
 }

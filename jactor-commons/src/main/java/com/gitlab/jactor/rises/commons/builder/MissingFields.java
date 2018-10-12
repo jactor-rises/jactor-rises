@@ -5,13 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class MissingFields {
     private final List<String> fieldsMissing = new ArrayList<>();
 
     void failWhenWhenFieldsAreMissing() {
         if (!fieldsMissing.isEmpty()) {
-            throw new IllegalStateException("Missing Fields:\n- " + String.join("\n- ", fieldsMissing));
+            throw new IllegalStateException("Missing fields:\n- " + String.join("\n- ", fieldsMissing));
         }
     }
 
@@ -21,18 +22,17 @@ public class MissingFields {
 
     public void addInvalidFieldWhenBlank(String field, String value) {
         if (StringUtils.isBlank(value)) {
-            addMissingField(field);
+            fieldsMissing.add(field);
         }
     }
 
     public void addInvalidFieldWhenNoValue(String field, Object value) {
         if (value == null) {
-            addMissingField(field);
+            fieldsMissing.add(field);
         }
     }
 
-    private void addMissingField(String field) {
-        fieldsMissing.add(String.format("Field '%s' has no value", field));
+    public void forEach(Consumer<? super String> fieldConsumer) {
+        fieldsMissing.forEach(fieldConsumer);
     }
-
 }

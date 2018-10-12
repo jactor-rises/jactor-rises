@@ -13,11 +13,11 @@ import static org.mockito.Mockito.when;
 @DisplayName("An instance of the AbstractBuilder")
 class AbstractBuilderTest {
 
-    @DisplayName("should fetch error message when invalid")
-    @Test void shouldUserValidationWhenBuildMethodIsInvoked() {
+    @DisplayName("should not fail when build is containing required fields")
+    @Test void shouldNotFailWhenBuildIsContainingRequiredFields() {
         @SuppressWarnings("unchecked") ValidInstance<Object> validInstanceMock = mock(ValidInstance.class);
 
-        (new AbstractBuilder<Object>(validInstanceMock) {
+        (new AbstractBuilder<>(validInstanceMock) {
             @Override protected Object buildBean() {
                 return new Object();
             }
@@ -26,28 +26,28 @@ class AbstractBuilderTest {
         verify(validInstanceMock).validate(notNull(), notNull());
     }
 
-    @DisplayName("should throw exception when build is missing fields")
-    @Test void shouldThrowExceptionWhenBuildIsMissingFields() {
+    @DisplayName("should fail when build is missing required fields")
+    @Test void shouldFailWhenBuildIsMissingRequiredFields() {
         @SuppressWarnings("unchecked") ValidInstance<Object> validInstanceMock = mock(ValidInstance.class);
 
         when(validInstanceMock.validate(any(Object.class), any(MissingFields.class))).thenReturn(missingFields().presentWhenFieldsAreMissing());
 
         assertThatIllegalStateException().isThrownBy(
-                () -> (new AbstractBuilder<Object>(validInstanceMock) {
+                () -> (new AbstractBuilder<>(validInstanceMock) {
                     @Override protected Object buildBean() {
                         return new Object();
                     }
                 }).build()
         )
-                .withMessageContaining("'someStringField'")
-                .withMessageContaining("'someInstanceField'")
-                .withMessageContaining("has no value");
+                .withMessageContaining("Missing fields:")
+                .withMessageContaining("someStringField")
+                .withMessageContaining("someObjectField");
     }
 
     private MissingFields missingFields() {
         MissingFields missingFields = new MissingFields();
         missingFields.addInvalidFieldWhenBlank("someStringField", "");
-        missingFields.addInvalidFieldWhenNoValue("someInstanceField", null);
+        missingFields.addInvalidFieldWhenNoValue("someObjectField", null);
 
         return missingFields;
     }
