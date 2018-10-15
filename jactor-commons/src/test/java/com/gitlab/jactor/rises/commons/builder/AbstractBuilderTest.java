@@ -39,15 +39,15 @@ class AbstractBuilderTest {
                     }
                 }).build()
         )
-                .withMessageContaining("Missing fields:")
+                .withMessageContaining("Missing fields on Bean:")
                 .withMessageContaining("someStringField")
                 .withMessageContaining("someObjectField");
     }
 
     private MissingFields missingFields() {
         MissingFields missingFields = new MissingFields();
-        missingFields.addInvalidFieldWhenBlank("someStringField", "");
-        missingFields.addInvalidFieldWhenNoValue("someObjectField", null);
+        missingFields.addInvalidFieldWhenNoValue("Bean", "someStringField", "");
+        missingFields.addInvalidFieldWhenNoValue("Bean", "someObjectField", null);
 
         return missingFields;
     }

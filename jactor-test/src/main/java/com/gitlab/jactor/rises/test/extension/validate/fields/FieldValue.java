@@ -1,18 +1,22 @@
 package com.gitlab.jactor.rises.test.extension.validate.fields;
 
-class FieldValue {
+public class FieldValue {
 
+    private final DynamicFieldValue dynamicFieldValue;
     private final String name;
-    private final Object value;
     private String setter;
 
-    FieldValue(String name, Object value) {
-        this(name, value, null);
+    public FieldValue(String name, Object value) {
+        this(name, () -> value, null);
     }
 
-    FieldValue(String name, Object value, String setter) {
+    public FieldValue(String name, DynamicFieldValue dynamicFieldValue) {
+        this(name, dynamicFieldValue, null);
+    }
+
+    FieldValue(String name, DynamicFieldValue dynamicFieldValue, String setter) {
+        this.dynamicFieldValue = dynamicFieldValue;
         this.name = name;
-        this.value = value;
         this.setter = setter;
     }
 
@@ -24,11 +28,20 @@ class FieldValue {
         return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
+    Object fetchValue() {
+        return dynamicFieldValue.provideValue();
+    }
+
+    @Override public String toString() {
+        return String.format("%s (%s): %s", name, fetchNameOfSetter(), fetchValue());
+    }
+
     String getName() {
         return name;
     }
 
-    Object getValue() {
-        return value;
+    @FunctionalInterface
+    public interface DynamicFieldValue {
+        Object provideValue();
     }
 }

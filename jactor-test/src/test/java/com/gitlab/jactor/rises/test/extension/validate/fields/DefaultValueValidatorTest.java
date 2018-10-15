@@ -4,8 +4,6 @@ import com.gitlab.jactor.rises.commons.builder.MissingFields;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.singletonList;
@@ -15,13 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DisplayName("A DefaultValueValidator")
 class DefaultValueValidatorTest {
 
-    private HashMap<Class<?>, List<FieldValue>> valuesByClass = new HashMap<>();
-    private DefaultValueValidator defaultValueValidator = new DefaultValueValidator(valuesByClass);
+    private DefaultValueValidator defaultValueValidator;
 
     @DisplayName("should set a default value with a setter")
     @Test void shouldSetDefaultValueWithSetter() {
         Object value = new Object();
-        valuesByClass.put(Pojos.ObjPojo.class, singletonList(new FieldValue("objField", value, "setObjField")));
+        defaultValueValidator = new DefaultValueValidator(singletonList(new FieldValue("objField", () -> value, "setObjField")));
         Pojos.ObjPojo pojo = new Pojos.ObjPojo();
 
         Optional<MissingFields> missingFields = defaultValueValidator.provideDefaultValues(this::validateObjPojo, pojo);
@@ -33,7 +30,7 @@ class DefaultValueValidatorTest {
     }
 
     private Optional<MissingFields> validateObjPojo(Pojos.ObjPojo pojo, MissingFields missingFields) {
-        missingFields.addInvalidFieldWhenNoValue("objField", pojo.getObjField());
+        missingFields.addInvalidFieldWhenNoValue(Pojos.ObjPojo.class.getSimpleName(), "objField", pojo.getObjField());
 
         return missingFields.presentWhenFieldsAreMissing();
     }
@@ -41,7 +38,7 @@ class DefaultValueValidatorTest {
     @DisplayName("should set a default value by creating a setter for field name")
     @Test void shouldSetDefaultValueUsingFieldName() {
         Object value = "default value";
-        valuesByClass.put(Pojos.StrPojo.class, singletonList(new FieldValue("strField", value)));
+        defaultValueValidator = new DefaultValueValidator(singletonList(new FieldValue("strField", value)));
         Pojos.StrPojo pojo = new Pojos.StrPojo();
 
         Optional<MissingFields> missingFields = defaultValueValidator.provideDefaultValues(this::validateStrPojo, pojo);
@@ -53,7 +50,7 @@ class DefaultValueValidatorTest {
     }
 
     private Optional<MissingFields> validateStrPojo(Pojos.StrPojo pojo, MissingFields missingFields) {
-        missingFields.addInvalidFieldWhenBlank("strField", pojo.getStrField());
+        missingFields.addInvalidFieldWhenNoValue(Pojos.StrPojo.class.getSimpleName(), "strField", pojo.getStrField());
 
         return missingFields.presentWhenFieldsAreMissing();
     }

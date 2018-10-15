@@ -1,28 +1,27 @@
 package com.gitlab.jactor.rises.test.extension.validate.fields;
 
-class Pojos {
-    static class ObjPojo {
+@SuppressWarnings("WeakerAccess") // public for reflection...
+public class Pojos {
+    public static class ObjPojo {
         private Object objField;
 
         Object getObjField() {
             return objField;
         }
 
-        @SuppressWarnings("unused") // used by reflection
-        public void setObjField(Object objField) {
+        public void setObjField(Object objField) { // public for reflection...
             this.objField = objField;
         }
     }
 
-    static class StrPojo {
+    public static class StrPojo {
         private String strField;
 
         String getStrField() {
             return strField;
         }
 
-        @SuppressWarnings("unused") // used by reflection
-        public void setStrField(String strField) {
+        @SuppressWarnings("unused") public void setStrField(String strField) { // used by reflection
             this.strField = strField;
         }
     }

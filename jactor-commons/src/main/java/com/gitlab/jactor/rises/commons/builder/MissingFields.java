@@ -10,9 +10,11 @@ import java.util.function.Consumer;
 public class MissingFields {
     private final List<String> fieldsMissing = new ArrayList<>();
 
+    private String beanName;
+
     void failWhenWhenFieldsAreMissing() {
         if (!fieldsMissing.isEmpty()) {
-            throw new IllegalStateException("Missing fields:\n- " + String.join("\n- ", fieldsMissing));
+            throw new IllegalStateException("Missing fields on " + beanName + ":\n- " + String.join("\n- ", fieldsMissing));
         }
     }
 
@@ -20,15 +22,16 @@ public class MissingFields {
         return fieldsMissing.isEmpty() ? Optional.empty() : Optional.of(this);
     }
 
-    public void addInvalidFieldWhenBlank(String field, String value) {
-        if (StringUtils.isBlank(value)) {
+    public void addInvalidFieldWhenNoValue(String beanName, String field, Object value) {
+        if (value == null || (value instanceof CharSequence && StringUtils.isBlank((CharSequence) value))) {
+            addBeanName(beanName);
             fieldsMissing.add(field);
         }
     }
 
-    public void addInvalidFieldWhenNoValue(String field, Object value) {
-        if (value == null) {
-            fieldsMissing.add(field);
+    private void addBeanName(String beanName) {
+        if (this.beanName == null) {
+            this.beanName = beanName;
         }
     }
 
