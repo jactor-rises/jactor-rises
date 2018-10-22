@@ -30,11 +30,6 @@
             <artifactId>jactor-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.gitlab.rises.application</groupId>
-            <artifactId>jactor-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- third party -->
         <dependency>

@@ -4,7 +4,7 @@ import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
 import com.gitlab.jactor.rises.facade.consume.AbstractRestConsumerService;
 import com.gitlab.jactor.rises.facade.consume.RestTemplateFactory;
-import com.gitlab.jactor.rises.model.service.UserConsumerService;
+import com.gitlab.jactor.rises.facade.service.UserConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

@@ -4,7 +4,7 @@ import com.gitlab.jactor.rises.commons.dto.BlogDto;
 import com.gitlab.jactor.rises.commons.dto.BlogEntryDto;
 import com.gitlab.jactor.rises.facade.consume.AbstractRestConsumerService;
 import com.gitlab.jactor.rises.facade.consume.RestTemplateFactory;
-import com.gitlab.jactor.rises.model.service.BlogConsumerService;
+import com.gitlab.jactor.rises.facade.service.BlogConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

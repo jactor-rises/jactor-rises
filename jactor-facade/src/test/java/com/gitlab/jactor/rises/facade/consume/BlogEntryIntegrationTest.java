@@ -2,8 +2,8 @@ package com.gitlab.jactor.rises.facade.consume;
 
 import com.gitlab.jactor.rises.commons.dto.BlogEntryDto;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.model.service.BlogConsumerService;
-import com.gitlab.jactor.rises.model.service.UserConsumerService;
+import com.gitlab.jactor.rises.facade.service.BlogConsumerService;
+import com.gitlab.jactor.rises.facade.service.UserConsumerService;
 import com.gitlab.jactor.rises.test.util.SpringBootActuatorUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

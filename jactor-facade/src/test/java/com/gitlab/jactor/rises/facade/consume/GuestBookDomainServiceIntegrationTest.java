@@ -1,12 +1,12 @@
 package com.gitlab.jactor.rises.facade.consume;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
-import com.gitlab.jactor.rises.model.domain.address.AddressBuilder;
-import com.gitlab.jactor.rises.model.domain.guestbook.GuestBookDomain;
-import com.gitlab.jactor.rises.model.domain.guestbook.GuestBookEntryDomain;
-import com.gitlab.jactor.rises.model.domain.person.PersonDomain;
-import com.gitlab.jactor.rises.model.domain.user.UserDomain;
-import com.gitlab.jactor.rises.model.service.GuestBookDomainService;
+import com.gitlab.jactor.rises.facade.domain.address.AddressBuilder;
+import com.gitlab.jactor.rises.facade.domain.guestbook.GuestBookDomain;
+import com.gitlab.jactor.rises.facade.domain.guestbook.GuestBookEntryDomain;
+import com.gitlab.jactor.rises.facade.domain.person.PersonDomain;
+import com.gitlab.jactor.rises.facade.domain.user.UserDomain;
+import com.gitlab.jactor.rises.facade.service.GuestBookDomainService;
 import com.gitlab.jactor.rises.test.extension.validate.SuppressValidInstanceExtension;
 import com.gitlab.jactor.rises.test.util.SpringBootActuatorUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,11 +21,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static com.gitlab.jactor.rises.model.domain.address.AddressDomain.anAddress;
-import static com.gitlab.jactor.rises.model.domain.guestbook.GuestBookDomain.aGuestBook;
-import static com.gitlab.jactor.rises.model.domain.guestbook.GuestBookEntryDomain.aGuestBookEntry;
-import static com.gitlab.jactor.rises.model.domain.person.PersonDomain.aPerson;
-import static com.gitlab.jactor.rises.model.domain.user.UserDomain.aUser;
+import static com.gitlab.jactor.rises.facade.domain.address.AddressDomain.anAddress;
+import static com.gitlab.jactor.rises.facade.domain.guestbook.GuestBookDomain.aGuestBook;
+import static com.gitlab.jactor.rises.facade.domain.guestbook.GuestBookEntryDomain.aGuestBookEntry;
+import static com.gitlab.jactor.rises.facade.domain.person.PersonDomain.aPerson;
+import static com.gitlab.jactor.rises.facade.domain.user.UserDomain.aUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;

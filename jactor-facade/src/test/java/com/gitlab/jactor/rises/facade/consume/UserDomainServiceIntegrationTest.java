@@ -2,8 +2,8 @@ package com.gitlab.jactor.rises.facade.consume;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.model.domain.user.UserDomain;
-import com.gitlab.jactor.rises.model.service.UserDomainService;
+import com.gitlab.jactor.rises.facade.domain.user.UserDomain;
+import com.gitlab.jactor.rises.facade.service.UserDomainService;
 import com.gitlab.jactor.rises.test.extension.validate.SuppressValidInstanceExtension;
 import com.gitlab.jactor.rises.test.util.SpringBootActuatorUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.gitlab.jactor.rises.commons.dto.UserDto.aUser;
-import static com.gitlab.jactor.rises.model.domain.address.AddressDomain.anAddress;
-import static com.gitlab.jactor.rises.model.domain.person.PersonDomain.aPerson;
+import static com.gitlab.jactor.rises.facade.domain.address.AddressDomain.anAddress;
+import static com.gitlab.jactor.rises.facade.domain.person.PersonDomain.aPerson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;

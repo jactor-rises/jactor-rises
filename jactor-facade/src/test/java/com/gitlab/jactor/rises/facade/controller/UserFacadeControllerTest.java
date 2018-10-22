@@ -2,7 +2,7 @@ package com.gitlab.jactor.rises.facade.controller;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.model.service.UserDomainService;
+import com.gitlab.jactor.rises.facade.service.UserDomainService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

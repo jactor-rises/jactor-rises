@@ -5,7 +5,7 @@ import com.gitlab.jactor.rises.commons.dto.GuestBookEntryDto;
 
 import com.gitlab.jactor.rises.facade.consume.AbstractRestConsumerService;
 import com.gitlab.jactor.rises.facade.consume.RestTemplateFactory;
-import com.gitlab.jactor.rises.model.service.GuestBookConsumerService;
+import com.gitlab.jactor.rises.facade.service.GuestBookConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
