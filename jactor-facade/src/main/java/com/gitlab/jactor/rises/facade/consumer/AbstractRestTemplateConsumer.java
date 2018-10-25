@@ -1,11 +1,11 @@
-package com.gitlab.jactor.rises.facade.consume;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 
-public abstract class AbstractRestConsumerService {
-    protected AbstractRestConsumerService() {
+public abstract class AbstractRestTemplateConsumer {
+    protected AbstractRestTemplateConsumer() {
     }
 
     protected <T> T bodyOf(ResponseEntity<T> responseEntity) {

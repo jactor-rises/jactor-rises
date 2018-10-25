@@ -1,4 +1,4 @@
-package com.gitlab.jactor.rises.facade.consume;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.facade.domain.address.AddressBuilder;

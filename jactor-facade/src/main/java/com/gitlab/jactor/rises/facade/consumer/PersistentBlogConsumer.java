@@ -1,10 +1,7 @@
-package com.gitlab.jactor.rises.facade.consume.persistence;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import com.gitlab.jactor.rises.commons.dto.BlogDto;
 import com.gitlab.jactor.rises.commons.dto.BlogEntryDto;
-import com.gitlab.jactor.rises.facade.consume.AbstractRestConsumerService;
-import com.gitlab.jactor.rises.facade.consume.RestTemplateFactory;
-import com.gitlab.jactor.rises.facade.service.BlogConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +10,17 @@ import org.springframework.web.util.UriTemplateHandler;
 
 import java.io.Serializable;
 
-public class DefaultBlogConsumerService extends AbstractRestConsumerService implements BlogConsumerService {
+public class PersistentBlogConsumer extends AbstractRestTemplateConsumer {
 
     private final String endpoint;
     private final UriTemplateHandler uriTemplateHandler;
 
-    public DefaultBlogConsumerService(UriTemplateHandler uriTemplateHandler, String endpoint) {
+    public PersistentBlogConsumer(UriTemplateHandler uriTemplateHandler, String endpoint) {
         this.uriTemplateHandler = uriTemplateHandler;
         this.endpoint = endpoint;
     }
 
-    @Override public BlogDto saveOrUpdate(BlogDto blogDto) {
+    public BlogDto saveOrUpdate(BlogDto blogDto) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/persist";
 
@@ -40,8 +37,7 @@ public class DefaultBlogConsumerService extends AbstractRestConsumerService impl
         return bodyOf(responseEntity);
     }
 
-
-    @Override public BlogEntryDto saveOrUpdate(BlogEntryDto blogEntryDto) {
+    BlogEntryDto saveOrUpdate(BlogEntryDto blogEntryDto) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/entry/persist";
 
@@ -58,7 +54,7 @@ public class DefaultBlogConsumerService extends AbstractRestConsumerService impl
         return bodyOf(responseEntity);
     }
 
-    @Override public BlogDto fetch(Serializable id) {
+    public BlogDto fetch(Serializable id) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/get/" + id;
 
@@ -70,7 +66,7 @@ public class DefaultBlogConsumerService extends AbstractRestConsumerService impl
         return bodyOf(responseEntity);
     }
 
-    @Override public BlogEntryDto fetchEntry(Serializable entryId) {
+    public BlogEntryDto fetchEntry(Serializable entryId) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/entry/get/" + entryId;
 

@@ -1,10 +1,10 @@
 package com.gitlab.jactor.rises.facade;
 
 import com.gitlab.jactor.rises.commons.framework.SpringBeanNames;
+import com.gitlab.jactor.rises.facade.consumer.PersistentGuestBookConsumer;
+import com.gitlab.jactor.rises.facade.consumer.PersistentUserConsumer;
 import com.gitlab.jactor.rises.facade.service.GuestBookDomainService;
-import com.gitlab.jactor.rises.facade.service.GuestBookConsumerService;
 import com.gitlab.jactor.rises.facade.service.UserDomainService;
-import com.gitlab.jactor.rises.facade.service.UserConsumerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -20,12 +20,12 @@ public class JactorFacade {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JactorFacade.class);
 
-    public @Bean GuestBookDomainService guestBookDomainService(GuestBookConsumerService guestBookConsumerService) {
-        return new GuestBookDomainService(guestBookConsumerService);
+    public @Bean GuestBookDomainService guestBookDomainService(PersistentGuestBookConsumer persistentGuestBookConsumer) {
+        return new GuestBookDomainService(persistentGuestBookConsumer);
     }
 
-    public @Bean UserDomainService userDomainService(UserConsumerService userConsumerService) {
-        return new UserDomainService(userConsumerService);
+    public @Bean UserDomainService userDomainService(PersistentUserConsumer persistentUserConsumer) {
+        return new UserDomainService(persistentUserConsumer);
     }
 
     public @Bean CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {

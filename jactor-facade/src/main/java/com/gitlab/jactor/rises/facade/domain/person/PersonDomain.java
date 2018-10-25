@@ -1,15 +1,13 @@
 package com.gitlab.jactor.rises.facade.domain.person;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
-import com.gitlab.jactor.rises.facade.domain.Person;
 import com.gitlab.jactor.rises.commons.dto.PersonDto;
 import com.gitlab.jactor.rises.facade.domain.PersistentDomain;
 import com.gitlab.jactor.rises.facade.domain.address.AddressDomain;
 
-import java.util.Locale;
 import java.util.Optional;
 
-public class PersonDomain extends PersistentDomain implements Person {
+public class PersonDomain extends PersistentDomain {
 
     private final PersonDto personDto;
 
@@ -17,23 +15,11 @@ public class PersonDomain extends PersistentDomain implements Person {
         this.personDto = personDto;
     }
 
-    @Override public String getDescription() {
-        return personDto.getDescription();
-    }
-
-    @Override public Name getFirstName() {
-        return Optional.ofNullable(personDto.getFirstName()).map(Name::new).orElse(null);
-    }
-
-    @Override public Name getSurname() {
+    Name getSurname() {
         return Optional.ofNullable(personDto.getSurname()).map(Name::new).orElse(null);
     }
 
-    @Override public Locale getLocale() {
-        return Optional.ofNullable(personDto.getLocale()).map(Locale::new).orElse(null);
-    }
-
-    @Override public AddressDomain getAddress() {
+    AddressDomain getAddress() {
         return Optional.ofNullable(personDto.getAddress()).map(AddressDomain::new).orElse(null);
     }
 

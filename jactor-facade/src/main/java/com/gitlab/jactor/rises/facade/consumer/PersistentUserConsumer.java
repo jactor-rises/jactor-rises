@@ -1,10 +1,7 @@
-package com.gitlab.jactor.rises.facade.consume.persistence;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.facade.consume.AbstractRestConsumerService;
-import com.gitlab.jactor.rises.facade.consume.RestTemplateFactory;
-import com.gitlab.jactor.rises.facade.service.UserConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +15,17 @@ import java.util.Optional;
 
 import static java.util.Collections.emptyList;
 
-public class DefaultUserConsumerService extends AbstractRestConsumerService implements UserConsumerService {
+public class PersistentUserConsumer extends AbstractRestTemplateConsumer {
 
     private final String endpoint;
     private final UriTemplateHandler uriTemplateHandler;
 
-    public DefaultUserConsumerService(UriTemplateHandler uriTemplateHandler, String endpoint) {
+    public PersistentUserConsumer(UriTemplateHandler uriTemplateHandler, String endpoint) {
         this.uriTemplateHandler = uriTemplateHandler;
         this.endpoint = endpoint;
     }
 
-    @Override public UserDto saveOrUpdate(UserDto userDto) {
+    public UserDto saveOrUpdate(UserDto userDto) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/persist";
 
@@ -45,7 +42,7 @@ public class DefaultUserConsumerService extends AbstractRestConsumerService impl
         return bodyOf(responseEntity);
     }
 
-    @Override public Optional<UserDto> fetch(Serializable id) {
+    public Optional<UserDto> fetch(Serializable id) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/get/" + id;
 
@@ -57,7 +54,7 @@ public class DefaultUserConsumerService extends AbstractRestConsumerService impl
         return Optional.ofNullable(bodyOf(responseEntity));
     }
 
-    @Override public Optional<UserDto> find(Username username) {
+    public Optional<UserDto> find(Username username) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/find/" + username.asString();
 
@@ -69,7 +66,7 @@ public class DefaultUserConsumerService extends AbstractRestConsumerService impl
         return Optional.ofNullable(bodyOf(responseEntity));
     }
 
-    @Override public List<String> findAllUsernames() {
+    public List<String> findAllUsernames() {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/all/usernames";
 

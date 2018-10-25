@@ -1,6 +1,5 @@
 package com.gitlab.jactor.rises.facade.domain.blog;
 
-import com.gitlab.jactor.rises.facade.domain.Blog;
 import com.gitlab.jactor.rises.commons.dto.BlogDto;
 import com.gitlab.jactor.rises.facade.domain.PersistentDomain;
 import com.gitlab.jactor.rises.facade.domain.user.UserDomain;
@@ -8,7 +7,7 @@ import com.gitlab.jactor.rises.facade.domain.user.UserDomain;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class BlogDomain extends PersistentDomain implements Blog {
+public class BlogDomain extends PersistentDomain {
 
     private final BlogDto blogDto;
 
@@ -16,15 +15,15 @@ public class BlogDomain extends PersistentDomain implements Blog {
         this.blogDto = blogDto;
     }
 
-    @Override public String getTitle() {
+    String getTitle() {
         return blogDto.getTitle();
     }
 
-    @Override public UserDomain getUser() {
+    public UserDomain getUser() {
         return Optional.ofNullable(blogDto.getUser()).map(UserDomain::new).orElse(null);
     }
 
-    @Override public LocalDate getCreated() {
+    LocalDate getCreated() {
         return getDto().getCreated();
     }
 

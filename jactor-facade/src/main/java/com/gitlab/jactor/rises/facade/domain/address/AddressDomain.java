@@ -1,13 +1,12 @@
 package com.gitlab.jactor.rises.facade.domain.address;
 
 import com.gitlab.jactor.rises.commons.datatype.Country;
-import com.gitlab.jactor.rises.facade.domain.Address;
 import com.gitlab.jactor.rises.commons.dto.AddressDto;
 import com.gitlab.jactor.rises.facade.domain.PersistentDomain;
 
 import java.util.Optional;
 
-public class AddressDomain extends PersistentDomain implements Address {
+public class AddressDomain extends PersistentDomain {
 
     private final AddressDto addressDto;
 
@@ -15,31 +14,31 @@ public class AddressDomain extends PersistentDomain implements Address {
         this.addressDto = addressDto;
     }
 
-    @Override public String getAddressLine1() {
+    String getAddressLine1() {
         return addressDto.getAddressLine1();
     }
 
-    @Override public String getAddressLine2() {
+    String getAddressLine2() {
         return addressDto.getAddressLine2();
     }
 
-    @Override public String getAddressLine3() {
+    String getAddressLine3() {
         return addressDto.getAddressLine3();
     }
 
-    @Override public String getCity() {
+    String getCity() {
         return addressDto.getCity();
     }
 
-    @Override public Country getCountry() {
+    Country getCountry() {
         return Optional.ofNullable(addressDto.getCountry()).map(Country::new).orElse(null);
     }
 
-    @Override public Integer getZipCode() {
+    Integer getZipCode() {
         return addressDto.getZipCode();
     }
 
-    @Override public AddressDto getDto() {
+    public AddressDto getDto() {
         return addressDto;
     }
 

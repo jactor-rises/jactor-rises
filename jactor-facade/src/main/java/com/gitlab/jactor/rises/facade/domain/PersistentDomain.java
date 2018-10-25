@@ -7,7 +7,7 @@ import org.apache.commons.lang3.Validate;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public abstract class PersistentDomain implements Persistent {
+public abstract class PersistentDomain {
     static final String THE_PERSISTENT_DATA_ON_THE_DOMAIN_CANNOT_BE_NULL = "The persistent data the domain cannot be null!";
 
     PersistentDto fetchDto() {
@@ -19,23 +19,23 @@ public abstract class PersistentDomain implements Persistent {
 
     public abstract PersistentDto getDto();
 
-    @Override public Serializable getId() {
+    public Serializable getId() {
         return fetchDto().getId();
     }
 
-    @Override public Name getCreatedBy() {
+    public Name getCreatedBy() {
         return new Name(fetchDto().getCreatedBy());
     }
 
-    @Override public LocalDateTime getCreationTime() {
+    LocalDateTime getCreationTime() {
         return fetchDto().getCreationTime();
     }
 
-    @Override public Name getUpdatedBy() {
+    Name getUpdatedBy() {
         return new Name(fetchDto().getUpdatedBy());
     }
 
-    @Override public LocalDateTime getUpdatedTime() {
+    LocalDateTime getUpdatedTime() {
         return fetchDto().getUpdatedTime();
     }
 }

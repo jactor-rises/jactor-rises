@@ -1,4 +1,4 @@
-package com.gitlab.jactor.rises.facade.consume;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplateHandler;

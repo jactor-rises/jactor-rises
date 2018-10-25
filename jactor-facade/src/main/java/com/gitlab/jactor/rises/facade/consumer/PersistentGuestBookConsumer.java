@@ -1,11 +1,8 @@
-package com.gitlab.jactor.rises.facade.consume.persistence;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import com.gitlab.jactor.rises.commons.dto.GuestBookDto;
 import com.gitlab.jactor.rises.commons.dto.GuestBookEntryDto;
 
-import com.gitlab.jactor.rises.facade.consume.AbstractRestConsumerService;
-import com.gitlab.jactor.rises.facade.consume.RestTemplateFactory;
-import com.gitlab.jactor.rises.facade.service.GuestBookConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +11,17 @@ import org.springframework.web.util.UriTemplateHandler;
 
 import java.io.Serializable;
 
-public class DefaultGuestBookConsumerService extends AbstractRestConsumerService implements GuestBookConsumerService {
+public class PersistentGuestBookConsumer extends AbstractRestTemplateConsumer {
 
     private final String endpoint;
     private final UriTemplateHandler uriTemplateHandler;
 
-    public DefaultGuestBookConsumerService(UriTemplateHandler uriTemplateHandler, String endpoint) {
+    public PersistentGuestBookConsumer(UriTemplateHandler uriTemplateHandler, String endpoint) {
         this.uriTemplateHandler = uriTemplateHandler;
         this.endpoint = endpoint;
     }
 
-    @Override public GuestBookDto saveOrUpdate(GuestBookDto guestBookDto) {
+    public GuestBookDto saveOrUpdate(GuestBookDto guestBookDto) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/persist";
 
@@ -41,7 +38,7 @@ public class DefaultGuestBookConsumerService extends AbstractRestConsumerService
         return bodyOf(responseEntity);
     }
 
-    @Override public GuestBookEntryDto saveOrUpdate(GuestBookEntryDto guestBookEntryDto) {
+    public GuestBookEntryDto saveOrUpdate(GuestBookEntryDto guestBookEntryDto) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/entry/persist";
 
@@ -59,7 +56,7 @@ public class DefaultGuestBookConsumerService extends AbstractRestConsumerService
         return bodyOf(responseEntity);
     }
 
-    @Override public GuestBookDto fetch(Serializable id) {
+    public GuestBookDto fetch(Serializable id) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/get/" + id;
 
@@ -71,7 +68,7 @@ public class DefaultGuestBookConsumerService extends AbstractRestConsumerService
         return bodyOf(responseEntity);
     }
 
-    @Override public GuestBookEntryDto fetchEntry(Serializable entryId) {
+    public GuestBookEntryDto fetchEntry(Serializable entryId) {
         RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         String endpointMethod = endpoint + "/entry/get/" + entryId;
 

@@ -1,9 +1,7 @@
-package com.gitlab.jactor.rises.facade.consume;
+package com.gitlab.jactor.rises.facade.consumer;
 
 import com.gitlab.jactor.rises.commons.dto.BlogEntryDto;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.facade.service.BlogConsumerService;
-import com.gitlab.jactor.rises.facade.service.UserConsumerService;
 import com.gitlab.jactor.rises.test.util.SpringBootActuatorUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,8 +28,8 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @ContextConfiguration(classes = JactorConsumer.class)
 class BlogEntryIntegrationTest {
 
-    private @Autowired BlogConsumerService blogConsumerService;
-    private @Autowired UserConsumerService userConsumerService;
+    private @Autowired PersistentBlogConsumer persistentBlogConsumer;
+    private @Autowired PersistentUserConsumer persistentUserConsumer;
 
     @BeforeEach void assumeJactorPersistenceRunning() throws IOException {
         assumeTrue(
@@ -42,7 +40,7 @@ class BlogEntryIntegrationTest {
 
     @DisplayName("should save blog entry")
     @Test void shouldSaveBlogEntryEntity() {
-        BlogEntryDto blogEntry = blogConsumerService.saveOrUpdate(
+        BlogEntryDto blogEntry = persistentBlogConsumer.saveOrUpdate(
                 createBlogEntryForPersistedUser("my blog", "some entry", "me")
         );
 
@@ -82,7 +80,7 @@ class BlogEntryIntegrationTest {
                         )
                 ).build();
 
-        return userConsumerService.saveOrUpdate(userDto);
+        return persistentUserConsumer.saveOrUpdate(userDto);
     }
 
     private String createUnique(String username) {

@@ -2,6 +2,7 @@ package com.gitlab.jactor.rises.facade.service;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
+import com.gitlab.jactor.rises.facade.consumer.PersistentUserConsumer;
 import com.gitlab.jactor.rises.test.extension.validate.SuppressValidInstanceExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,13 +22,13 @@ import static org.mockito.Mockito.when;
 class UserDomainServiceTest {
 
     private @InjectMocks UserDomainService testUserDomainService;
-    private @Mock UserConsumerService userConsumerServiceMock;
+    private @Mock PersistentUserConsumer persistentUserConsumerMock;
 
     @BeforeEach void initMocking() {
         MockitoAnnotations.initMocks(this);
     }
 
-    @DisplayName("should return an empty Optional when the UserConsumerService cannot find a dto for the given user name")
+    @DisplayName("should return an empty Optional when the PersistentUserConsumer cannot find a dto for the given user name")
     @Test void shouldNotFindUnknownUser() {
         Optional<UserDto> user = testUserDomainService.find(new Username("someone"));
         assertThat(user.isPresent()).isEqualTo(false);
@@ -36,7 +37,7 @@ class UserDomainServiceTest {
     @DisplayName("should find a user when the user name only differs in case")
     @ExtendWith(SuppressValidInstanceExtension.class)
     @Test void shouldFindUser() {
-        when(userConsumerServiceMock.find(new Username("jactor"))).thenReturn(Optional.of(aUser().build()));
+        when(persistentUserConsumerMock.find(new Username("jactor"))).thenReturn(Optional.of(aUser().build()));
         Optional<UserDto> optionalUser = testUserDomainService.find(new Username("JACTOR"));
 
         assertThat(optionalUser.isPresent()).isEqualTo(true);
@@ -45,7 +46,7 @@ class UserDomainServiceTest {
     @DisplayName("should fetch user by id")
     @ExtendWith(SuppressValidInstanceExtension.class)
     @Test void shouldFetchUserById() {
-        when(userConsumerServiceMock.fetch(1L)).thenReturn(Optional.of(aUser().build()));
+        when(persistentUserConsumerMock.fetch(1L)).thenReturn(Optional.of(aUser().build()));
         Optional<UserDto> optionalUser = testUserDomainService.fetch(1L);
 
         assertThat(optionalUser.isPresent()).isEqualTo(true);
