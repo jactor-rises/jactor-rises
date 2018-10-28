@@ -10,12 +10,12 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.gitlab.rises</groupId>
+    <groupId>com.github.jactor-rises</groupId>
     <artifactId>jactor-web</artifactId>
 
-    <name>rises::jactor-web</name>
-    <description>A web module for rises</description>
-    <version>1.1.1-SNAPSHOT</version>
+    <name>jactor-rises::jactor-web</name>
+    <description>A web module for jactor-rises</description>
+    <version>1.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,7 +33,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.gitlab.rises</groupId>
+            <groupId>com.github.jactor-rises</groupId>
             <artifactId>jactor-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -70,7 +70,7 @@
 
         <!-- Test scope -->
         <dependency>
-            <groupId>com.gitlab.rises</groupId>
+            <groupId>com.github.jactor-rises</groupId>
             <artifactId>jactor-test</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

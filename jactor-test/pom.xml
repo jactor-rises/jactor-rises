@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.gitlab.rises</groupId>
-        <artifactId>rises</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <groupId>com.github.jactor-rises</groupId>
+        <artifactId>jactor-rises</artifactId>
+        <version>1.2</version>
     </parent>
 
     <artifactId>jactor-test</artifactId>
     <packaging>jar</packaging>
 
-    <name>rises::jactor-test</name>
+    <name>jactor-rises::jactor-test</name>
     <description>The test beans in jactor-rises</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.gitlab.rises</groupId>
+            <groupId>com.github.jactor-rises</groupId>
             <artifactId>jactor-commons</artifactId>
         </dependency>
 

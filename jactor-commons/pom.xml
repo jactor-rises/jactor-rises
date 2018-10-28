@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.gitlab.rises</groupId>
-        <artifactId>rises</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <groupId>com.github.jactor-rises</groupId>
+        <artifactId>jactor-rises</artifactId>
+        <version>1.2</version>
     </parent>
 
     <artifactId>jactor-commons</artifactId>
     <packaging>jar</packaging>
 
-    <name>rises::jactor-commons</name>
+    <name>jactor-rises::jactor-commons</name>
     <description>The commons beans used by more than one microservice</description>
 
 </project>
